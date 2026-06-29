@@ -1,0 +1,30 @@
+# Extended single-GPU MAE continuation pretrain.
+#
+# Goal: pay down the discussion-section limitation 6 (MAE was possibly
+# under-trained on the A4000) by running ~2.7x as many gradient steps as
+# the default pretrain_mae.yaml schedule. Still single-GPU; tune the
+# effective batch size up via grad_accum so an RTX A4000 (16 GB) can fit
+# without OOM.
+#
+# For a multi-GPU comparison later:
+#   sickling pretrain -c configs/pretrain_mae_long.yaml --devices 4 --strategy ddp
+# The DurationCallback writes wall-clock to duration.json next to the
+# checkpoints so the speed-up over single-GPU is measurable.
+
+training:
+  precision: bf16-mixed
+  batch_size: 192             # fits A4000 16 GB in bf16-mixed for ViT-S/14
+  grad_accum: 2               # effective batch 384 (MAE benefits from large batches)
+  max_epochs: 1600             # ~2.7x the previous 300; spec range was 200–400
+  warmup_epochs: 40           # ~5% of total per MAE recipe
+  lr: 1.5e-4
+  weight_decay: 0.05
+  num_workers: 6
+
+mae_pretrain:
+  mask_ratio: 0.75
+  decoder_embed_dim: 256
+  decoder_depth: 4
+  decoder_num_heads: 8
+  norm_pix_loss: true
+  periodic_probe_every: 0     # set to N to log linear-probe MCC every N epochs

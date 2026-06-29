@@ -1,0 +1,82 @@
+{
+  "timestamp_utc": "2026-06-12T09:03:08.484199+00:00",
+  "input_folder": "E:\\utku g leica\\rbc-class\\sickling-poster",
+  "checkpoints": {
+    "unet": {
+      "path": "E:\\utku g leica\\rbc-class\\models\\unet_fold_1_best_loop_5.pth",
+      "sha256": "e9f73ab50d0c2cb0ad574d244c6a78404a223c3ca506aa65e77c9a39ef095c7c"
+    },
+    "classifier": {
+      "path": "E:\\utku g leica\\rbc-class\\checkpoints\\multimodal_dinov2_frozen_image+morphology_fold0\\last.ckpt",
+      "sha256": "2573f1d4b90da0493ae156357072e724fbb966af58708ed0f520f85e5a8cc58f",
+      "variant": "multimodal",
+      "image_variant": "dinov2_frozen",
+      "use_image": true,
+      "use_morphology": true
+    }
+  },
+  "config": {
+    "polymer_px_to_um": 0.16129032258064516,
+    "polymer_min_length_px": 10,
+    "polymer_max_length_px": 300,
+    "polymer_max_dist_from_cell_px": 200,
+    "polymer_assign_dilation_px": 2,
+    "defect_depth_min_px": 2,
+    "batch_size": 64,
+    "pvalue_test": "mannwhitneyu",
+    "fdr_method": "fdr_bh"
+  },
+  "conditions": [
+    {
+      "condition": "A-UNT",
+      "n_images": 288,
+      "n_cells": 11323
+    },
+    {
+      "condition": "ALHi",
+      "n_images": 288,
+      "n_cells": 30033
+    },
+    {
+      "condition": "ALLo",
+      "n_images": 288,
+      "n_cells": 20458
+    },
+    {
+      "condition": "S-UNT",
+      "n_images": 992,
+      "n_cells": 96324
+    },
+    {
+      "condition": "SE1",
+      "n_images": 288,
+      "n_cells": 10935
+    },
+    {
+      "condition": "SE2",
+      "n_images": 288,
+      "n_cells": 3730
+    },
+    {
+      "condition": "SLHi",
+      "n_images": 288,
+      "n_cells": 22555
+    },
+    {
+      "condition": "SLN1",
+      "n_images": 288,
+      "n_cells": 20005
+    }
+  ],
+  "outputs": {
+    "per_fov": "E:\\utku g leica\\rbc-class\\sickling-poster\\per_fov.parquet",
+    "per_condition": "E:\\utku g leica\\rbc-class\\sickling-poster\\per_condition.parquet",
+    "per_cell": "E:\\utku g leica\\rbc-class\\sickling-poster\\per_cell.parquet",
+    "per_cell_morphology": "E:\\utku g leica\\rbc-class\\sickling-poster\\per_cell_morphology.pt",
+    "polymer_blobs": "E:\\utku g leica\\rbc-class\\sickling-poster\\polymer_blobs.parquet",
+    "pairwise_stats": "E:\\utku g leica\\rbc-class\\sickling-poster\\pairwise_stats.parquet",
+    "failed": "E:\\utku g leica\\rbc-class\\sickling-poster\\failed.jsonl",
+    "figures_dir": "E:\\utku g leica\\rbc-class\\sickling-poster\\figures"
+  },
+  "failed_count": 0
+}

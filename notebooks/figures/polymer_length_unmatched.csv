@@ -1,0 +1,51 @@
+jpg_filename,grid_row,grid_col,kind,model_cc_id,len_px,polymer_idx
+D16_03_1_7_Bright Field_001_LHi (129)__y1031_x1481_h90_w90.jpg,0,0,model_cc_no_match (model_FP),3.0,8.0,
+D16_03_1_7_Bright Field_001_LHi (137)__y234_x1538_h64_w64.jpg,0,1,model_cc_no_match (model_FP),1.0,3.0,
+D16_03_1_7_Bright Field_001_LHi (139)__y1530_x545_h64_w64.jpg,0,2,manual_no_match (model_FN),,10.816653826391969,3.0
+D16_03_1_7_Bright Field_001_LHi (139)__y1530_x545_h64_w64.jpg,0,2,manual_no_match (model_FN),,11.313708498984761,4.0
+G21_03_1_14_Bright Field_001__y864_x511_h65_w65.jpg,1,9,model_cc_no_match (model_FP),1.0,11.0,
+G21_03_1_14_Bright Field_001__y864_x511_h65_w65.jpg,1,9,model_cc_no_match (model_FP),3.0,15.0,
+G21_03_1_14_Bright Field_001__y864_x511_h65_w65.jpg,1,9,model_cc_no_match (model_FP),4.0,3.0,
+G21_03_1_11_Bright Field_001__y1183_x248_h96_w96.jpg,1,7,manual_no_match (model_FN),,29.154759474226502,25.0
+G21_03_1_10_Bright Field_002__y1780_x246_h128_w128.jpg,1,6,model_cc_no_match (model_FP),2.0,20.0,
+H20_03_1_10_Bright Field_001__y795_x640_h107_w107.jpg,2,9,model_cc_no_match (model_FP),2.0,16.0,
+H20_03_1_10_Bright Field_001__y795_x640_h107_w107.jpg,2,9,model_cc_no_match (model_FP),4.0,9.0,
+H20_03_1_10_Bright Field_001__y795_x640_h107_w107.jpg,2,9,model_cc_no_match (model_FP),5.0,6.0,
+H20_03_1_1_Bright Field_001__y626_x516_h64_w64.jpg,3,9,model_cc_no_match (model_FP),3.0,4.0,
+G21_03_1_8_Bright Field_001__y846_x1255_h66_w66.jpg,2,8,model_cc_no_match (model_FP),2.0,11.0,
+G21_03_1_6_Bright Field_002__y1500_x364_h128_w128.jpg,2,5,model_cc_no_match (model_FP),2.0,3.0,
+H20_03_1_12_Bright Field_002__y1494_x50_h64_w64.jpg,3,4,manual_no_match (model_FN),,15.033296378372908,43.0
+H20_03_1_12_Bright Field_001__y1559_x525_h99_w99.jpg,3,3,manual_no_match (model_FN),,16.97056274847714,50.0
+H20_03_1_11_Bright Field_002__y1664_x506_h77_w77.jpg,3,2,model_cc_no_match (model_FP),1.0,25.0,
+H20_03_1_11_Bright Field_002__y1664_x506_h77_w77.jpg,3,2,model_cc_no_match (model_FP),6.0,9.0,
+H20_03_1_11_Bright Field_001__y1452_x306_h101_w101.jpg,3,1,model_cc_no_match (model_FP),2.0,3.0,
+H20_03_1_10_Bright Field_002__y1508_x1743_h105_w105.jpg,3,0,model_cc_no_match (model_FP),2.0,33.0,
+H20_03_1_2_Bright Field_002__y812_x327_h101_w101.jpg,4,1,model_cc_no_match (model_FP),3.0,4.0,
+H20_03_1_3_Bright Field_002__y641_x302_h85_w85.jpg,4,3,manual_no_match (model_FN),,20.12461179749811,79.0
+H20_03_1_3_Bright Field_002__y641_x302_h85_w85.jpg,4,3,manual_no_match (model_FN),,12.206555615733702,80.0
+H20_03_1_4_Bright Field_001__y1396_x206_h64_w64.jpg,4,4,manual_no_match (model_FN),,29.410882339705484,87.0
+H20_03_1_4_Bright Field_001__y1396_x206_h64_w64.jpg,4,4,manual_no_match (model_FN),,29.832867780352597,89.0
+H20_03_1_4_Bright Field_001__y1396_x206_h64_w64.jpg,4,4,manual_no_match (model_FN),,38.73583896053132,90.0
+H20_03_1_6_Bright Field_002__y618_x292_h101_w101.jpg,4,7,model_cc_no_match (model_FP),2.0,1.0,
+H20_03_1_6_Bright Field_002__y618_x292_h101_w101.jpg,4,7,model_cc_no_match (model_FP),3.0,3.0,
+H20_03_1_6_Bright Field_002__y618_x292_h101_w101.jpg,4,7,model_cc_no_match (model_FP),5.0,5.0,
+H20_03_1_8_Bright Field_001__y148_x1423_h64_w64.jpg,4,8,model_cc_no_match (model_FP),2.0,4.0,
+H20_03_1_8_Bright Field_002__y265_x1565_h110_w110.jpg,4,9,model_cc_no_match (model_FP),4.0,26.0,
+H20_03_1_8_Bright Field_002__y265_x1565_h110_w110.jpg,4,9,model_cc_no_match (model_FP),5.0,12.0,
+I20_03_1_2_Bright Field_001__y1813_x1122_h118_w118.jpg,5,7,manual_no_match (model_FN),,73.24616030891995,102.0
+I20_03_1_2_Bright Field_001__y1813_x1122_h118_w118.jpg,5,7,manual_no_match (model_FN),,32.0,103.0
+I20_03_1_3_Bright Field_001__y871_x1531_h64_w64.jpg,5,8,model_cc_no_match (model_FP),1.0,13.0,
+I20_03_1_3_Bright Field_001__y871_x1531_h64_w64.jpg,5,8,model_cc_no_match (model_FP),3.0,4.0,
+J20_03_1_15_Bright Field_001__y568_x1300_h76_w76.jpg,6,9,model_cc_no_match (model_FP),2.0,6.0,
+J20_03_1_11_Bright Field_001__y936_x1080_h97_w97.jpg,6,8,model_cc_no_match (model_FP),2.0,13.0,
+J20_03_1_5_Bright Field_002__y1128_x498_h128_w128.jpg,7,7,model_cc_no_match (model_FP),2.0,7.0,
+K20_03_1_14_Bright Field_001__y713_x782_h128_w128.jpg,8,7,manual_no_match (model_FN),,46.51881339845203,137.0
+K20_03_1_3_Bright Field_001__y864_x1478_h64_w64.jpg,8,9,model_cc_no_match (model_FP),1.0,18.0,
+K20_03_1_3_Bright Field_001__y864_x1478_h64_w64.jpg,8,9,model_cc_no_match (model_FP),6.0,14.0,
+K20_03_1_9_Bright Field_001__y1512_x801_h127_w127.jpg,9,8,model_cc_no_match (model_FP),3.0,9.0,
+K20_03_1_11_Bright Field_001__y1163_x1048_h65_w65.jpg,8,5,manual_no_match (model_FN),,24.0,147.0
+K20_03_1_5_Bright Field_002__y657_x919_h111_w111.jpg,9,4,manual_no_match (model_FN),,66.48308055437865,153.0
+J20_03_1_3_Bright Field_001__y777_x723_h91_w91.jpg,7,3,model_cc_no_match (model_FP),1.0,44.0,
+J20_03_1_8_Bright Field_002__y562_x1030_h128_w128.jpg,8,1,model_cc_no_match (model_FP),3.0,3.0,
+J20_03_1_8_Bright Field_002__y562_x1030_h128_w128.jpg,8,1,model_cc_no_match (model_FP),5.0,12.0,
+J20_03_1_16_Bright Field_002__y1314_x877_h107_w107.jpg,7,0,model_cc_no_match (model_FP),3.0,4.0,

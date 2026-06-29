@@ -1,0 +1,90 @@
+# ---------------------------------------------------------------------------
+# Python build / cache
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+
+# ---------------------------------------------------------------------------
+# Notebook checkpoints + auto-save artifacts
+# ---------------------------------------------------------------------------
+.ipynb_checkpoints/
+*-checkpoint.ipynb
+
+# ---------------------------------------------------------------------------
+# Large data / model artifacts (live on OSF: https://osf.io/gnec4/)
+# ---------------------------------------------------------------------------
+# Raw bright-field stacks, per-condition image folders, U-Net checkpoint
+# pools, classifier checkpoint pools — none of these belong in git. The
+# code can re-create them from the OSF deposit.
+
+# Per-condition image folders inside experiment_data/
+sickling/rbc_classification/experiment_data/A-UNT/
+sickling/rbc_classification/experiment_data/ALHi/
+sickling/rbc_classification/experiment_data/ALLo/
+sickling/rbc_classification/experiment_data/S-UNT/
+sickling/rbc_classification/experiment_data/SE1/
+sickling/rbc_classification/experiment_data/SE2/
+sickling/rbc_classification/experiment_data/SLHi/
+sickling/rbc_classification/experiment_data/SLN1/
+sickling/rbc_classification/experiment_data/crops/
+sickling/rbc_classification/experiment_data/figures/
+
+# HITL training data, predictions, models, viz outputs
+sickling/protrusion_detection/BootstrappedLabels/
+sickling/protrusion_detection/CorrectedTiles/
+sickling/protrusion_detection/CorrectedTiles_loop_*/
+sickling/protrusion_detection/CorrectionPool/
+sickling/protrusion_detection/InitialLabels/
+sickling/protrusion_detection/MiniTilesCorrected/
+sickling/protrusion_detection/MiniTilesForEval/
+sickling/protrusion_detection/MiniTilesToBeCorrected/
+sickling/protrusion_detection/TilesToBeCorrected/
+sickling/protrusion_detection/TilesToBeCorrected_loop_*/
+sickling/protrusion_detection/evaluation_truth/
+sickling/protrusion_detection/trainingImages/
+sickling/protrusion_detection/models/
+sickling/protrusion_detection/metrics/
+sickling/protrusion_detection/viz/
+
+# Classifier training artefacts
+sickling/rbc_classification/checkpoints/
+sickling/rbc_classification/models_backup/
+sickling/rbc_classification/raw_images/
+sickling/rbc_classification/unet_predictions/
+sickling/rbc_classification/to_be_labeled*/
+sickling/rbc_classification/crops/
+sickling/rbc_classification/instances/
+sickling/rbc_classification/conditions/
+sickling/rbc_classification/wandb_logs/
+sickling/rbc_classification/figures/
+
+# Per-cell morphology tensor (27MB) — paper figures don't depend on it
+sickling/rbc_classification/experiment_data/per_cell_morphology.pt
+
+# Top-level handoff / scratch
+HANDOFF.md
+_stage_log.txt
+.claude/
+demo_data/
+*.ckpt
+*.pth
+
+# ---------------------------------------------------------------------------
+# OS / IDE noise
+# ---------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.env
+.env.local

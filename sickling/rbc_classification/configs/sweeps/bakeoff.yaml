@@ -1,0 +1,48 @@
+# wandb sweep config — backbone bake-off + finetune hyperparameter search.
+# Run with:
+#   wandb sweep configs/sweeps/bakeoff.yaml
+#   wandb agent <entity>/sickling-classifier/<sweep-id>
+#
+# Each agent invocation calls `sickling finetune <variant>` with the suggested
+# hyperparameters via env-var overrides (SICKLING_FINETUNE__... and
+# SICKLING_TRAINING__...).
+
+program: sickling
+method: bayes
+metric:
+  name: val_pr_auc
+  goal: maximize
+parameters:
+  variant:
+    values: [dinov2_frozen, timm_vit, mae]
+  SICKLING_TRAINING__LR:
+    min: 0.00001
+    max: 0.001
+    distribution: log_uniform_values
+  SICKLING_TRAINING__BATCH_SIZE:
+    values: [32, 64, 128]
+  SICKLING_TRAINING__WEIGHT_DECAY:
+    min: 0.001
+    max: 0.1
+    distribution: log_uniform_values
+  SICKLING_FINETUNE__HEAD_LR:
+    min: 0.0001
+    max: 0.005
+    distribution: log_uniform_values
+  SICKLING_FINETUNE__BACKBONE_LR:
+    min: 0.00001
+    max: 0.0005
+    distribution: log_uniform_values
+  SICKLING_FINETUNE__LLRD:
+    min: 0.4
+    max: 0.95
+    distribution: uniform
+  SICKLING_FINETUNE__MINORITY_FRAC:
+    values: [0.3, 0.4, 0.5, 0.6]
+command:
+  - ${env}
+  - ${interpreter}
+  - -m
+  - sickling.cli.main
+  - finetune
+  - ${args_no_hyphens}

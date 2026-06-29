@@ -1,0 +1,125 @@
+# Base configuration — paths and project-wide constants.
+# Per-stage YAMLs are loaded on top of this and override individual fields.
+
+project:
+  name: sickling-classifier
+  wandb_entity: null            # set after `wandb login` and your team is created
+  seed: 42
+
+paths:
+  root: "."
+  raw_images: "raw_images"             # raw .jpg/.png/.tif full-FOV images
+  unet_predictions: "unet_predictions" # frozen U-Net 4-class label maps (.h5)
+  instances: "instances"               # Stage 2 output: integer instance label images (.h5)
+  labels: "labels"                     # per-cell ground-truth CSV
+  labels_csv: "labels/labels.csv"      # override to labels/labels_trimmed.csv for fast iteration
+  conditions: "conditions"             # per-FOV metadata CSV
+  crops: "crops"                       # output of Stage 3 (per-cell tensors)
+  cells_parquet: "cells.parquet"       # output index of Stage 3
+  failed_jsonl: "failed.jsonl"         # rows that couldn't be processed
+  checkpoints: "checkpoints"
+  figures: "figures"
+  wandb_dir: "wandb_logs"
+
+# 4-class label-map convention from the frozen U-Net.
+# Indices are 0-based after subtracting 1 from raw Ilastik 1-based labels.
+classes:
+  polymer: 0
+  background: 1
+  cell_body: 2
+  cell_border: 3
+
+# Per-cell crop tensor: 3 channels, ordered.
+# ch0 = raw grayscale (normalized), ch1 = this instance's cell_body mask,
+# ch2 = this instance's polymer mask (intersected with the instance footprint).
+crop:
+  size: 96
+  resize_to_vit: 224           # bilinear for ch0, nearest for ch1/ch2
+  norm_percentile: 99.0        # matches training 2.ipynb
+  drop_if_clipped: true        # drop cells whose 96x96 window would exit the image
+
+# Stage 2 instance segmentation defaults. Cells are 40-70 px diameter.
+instances:
+  closing_radius: 2            # morphological closing structuring element radius
+  peak_min_distance: 12        # peak_local_max min distance between markers (px)
+  peak_threshold_rel: 0.3      # peak_local_max threshold relative to max
+  min_area: 550                # px^2 — empirically tuned via stage2 QA panel
+  max_area: 6000               # px^2 — drop merged blobs
+  drop_edge_touching: true
+
+# Stage 4 representation-learning bake-off variants.
+representation:
+  variants: [dinov2_frozen, timm_vit_supervised, mae_continued]
+  dinov2:
+    repo: facebookresearch/dinov2
+    model: dinov2_vits14
+    embed_dim: 384
+  timm_vit:
+    model: vit_small_patch16_224.augreg_in21k_ft_in1k
+    embed_dim: 384
+    layer_wise_lr_decay: 0.65
+  mae:
+    model: vit_small_patch16_224.mae           # placeholder
+    embed_dim: 384
+    mask_ratio: 0.75
+    pretrain_epochs: 300
+
+# Stage 5 multimodal fusion.
+multimodal:
+  fusion_hidden: 256
+  dropout: 0.3
+  num_classes: 2
+
+# Validation harness.
+validation:
+  cv_folds: 5
+  group_by: source_image       # no leakage across same FOV
+  bootstrap_resamples: 1000
+  bootstrap_alpha: 0.05
+  natural_prevalence_eval: true
+  weighted_sampler_minority_frac: 0.5
+  # ``balanced`` greedy-bin-packs FOVs into folds so per-class cell counts are
+  # near-equal; ``stratified`` is the original sklearn-backed splitter.
+  fold_strategy: balanced
+  # null = no gating; 0.10 mimics the ~10% natural-prevalence target until the
+  # user finishes the negative-class labelling campaign.
+  target_sickle_frac: null
+  gate_seed: 42
+
+# Training defaults — overridden by stage-specific configs.
+training:
+  precision: bf16-mixed
+  batch_size: 64
+  grad_accum: 1
+  max_epochs: 50
+  lr: 1.0e-4
+  weight_decay: 0.05
+  warmup_epochs: 5
+  monitor_metric: val_pr_auc
+  monitor_mode: max
+  save_top_k: 3
+  num_workers: 4
+
+augment:
+  hflip_p: 0.5
+  vflip_p: 0.5
+  rot90_p: 0.75
+  brightness_jitter: 0.10
+  contrast_jitter: 0.10
+
+finetune:
+  head_lr: 1.0e-3
+  backbone_lr: 1.0e-4
+  llrd: 0.65
+  label_smoothing: 0.0
+  minority_frac: 0.5
+  fold: 0
+  sickle_class_index: 1
+
+mae_pretrain:
+  mask_ratio: 0.75
+  decoder_embed_dim: 256
+  decoder_depth: 4
+  decoder_num_heads: 8
+  norm_pix_loss: true
+  periodic_probe_every: 0

@@ -1,0 +1,19 @@
+# MAE continuation pretraining on the unlabeled cell-crop corpus.
+# Single-GPU defaults; for the multi-GPU rented box set --devices N --strategy ddp.
+
+training:
+  precision: bf16-mixed
+  batch_size: 256
+  grad_accum: 1
+  max_epochs: 300
+  warmup_epochs: 10
+  lr: 1.5e-4
+  weight_decay: 0.05
+  num_workers: 6
+
+mae_pretrain:
+  mask_ratio: 0.75
+  decoder_embed_dim: 256
+  decoder_depth: 4
+  decoder_num_heads: 8
+  norm_pix_loss: true

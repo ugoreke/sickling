@@ -1,0 +1,20 @@
+# Tiny override for smoke-testing the ablation runner end-to-end.
+training:
+  precision: 32-true
+  batch_size: 16
+  max_epochs: 2
+  warmup_epochs: 0
+  num_workers: 0
+
+finetune:
+  head_lr: 1.0e-3
+  backbone_lr: 1.0e-4
+  minority_frac: 0.5
+
+mae_pretrain:
+  decoder_embed_dim: 128
+  decoder_depth: 2
+  decoder_num_heads: 4
+
+validation:
+  bootstrap_resamples: 200

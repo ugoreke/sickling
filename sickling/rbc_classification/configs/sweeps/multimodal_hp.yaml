@@ -1,0 +1,46 @@
+# wandb sweep config — multimodal fusion hyperparameter search.
+# Image tower fixed (winning bake-off backbone); sweeps fusion + LRs.
+# Run with:
+#   wandb sweep configs/sweeps/multimodal_hp.yaml
+#   wandb agent <entity>/sickling-classifier/<sweep-id>
+
+program: sickling
+method: bayes
+metric:
+  name: val_pr_auc
+  goal: maximize
+parameters:
+  image_variant:
+    values: [dinov2_frozen, timm_vit]
+  SICKLING_MULTIMODAL__FUSION_HIDDEN:
+    values: [128, 256, 512]
+  SICKLING_MULTIMODAL__DROPOUT:
+    min: 0.0
+    max: 0.5
+    distribution: uniform
+  SICKLING_FINETUNE__HEAD_LR:
+    min: 0.0001
+    max: 0.005
+    distribution: log_uniform_values
+  SICKLING_FINETUNE__BACKBONE_LR:
+    min: 0.00001
+    max: 0.0005
+    distribution: log_uniform_values
+  SICKLING_FINETUNE__LLRD:
+    min: 0.4
+    max: 0.95
+    distribution: uniform
+  SICKLING_TRAINING__BATCH_SIZE:
+    values: [32, 64, 128]
+  SICKLING_TRAINING__WEIGHT_DECAY:
+    min: 0.001
+    max: 0.1
+    distribution: log_uniform_values
+command:
+  - ${env}
+  - ${interpreter}
+  - -m
+  - sickling.cli.main
+  - finetune
+  - multimodal
+  - ${args_no_hyphens}

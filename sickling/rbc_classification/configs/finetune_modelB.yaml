@@ -1,0 +1,14 @@
+# Model B — ImageNet-supervised ViT-S/16 + full fine-tune with LLRD.
+
+training:
+  batch_size: 64
+  max_epochs: 30
+  warmup_epochs: 5
+  weight_decay: 0.05
+
+finetune:
+  head_lr: 1.0e-3
+  backbone_lr: 1.0e-4
+  llrd: 0.65
+  minority_frac: 0.5
+  label_smoothing: 0.0

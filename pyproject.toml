@@ -1,0 +1,83 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sickling"
+version = "1.0.0"
+description = "HbS protrusion segmentation (HITL U-Net) + sickle/non-sickle classification (frozen DINOv2 + morphology multimodal) for bright-field microscopy of HSPC-derived RBCs. Accompanies Goreke et al., Mol Ther Adv (in press)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "Utku Goreke"}
+]
+keywords = [
+    "sickle-cell-disease",
+    "machine-learning",
+    "bright-field-microscopy",
+    "semantic-segmentation",
+    "cell-classification",
+    "dinov2",
+]
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+]
+dependencies = [
+    "numpy>=1.24",
+    "torch>=2.0",
+    "torchvision",
+    "scikit-image>=0.21",
+    "scikit-learn>=1.3",
+    "scipy>=1.10",
+    "pandas>=2.0",
+    "h5py>=3.8",
+    "Pillow>=10.0",
+    "matplotlib>=3.7",
+    "tqdm>=4.65",
+    "segmentation-models-pytorch>=0.3",
+    "pydantic-settings>=2.0",
+    "pytorch-lightning>=2.0",
+    "timm>=0.9",
+    "pyarrow>=12.0",
+]
+
+[project.optional-dependencies]
+classification = [
+    "wandb>=0.15",
+    "mahotas>=1.4",
+]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.1",
+]
+
+[project.urls]
+Repository = "https://github.com/ugoreke/sickling"
+Data = "https://osf.io/gnec4/"
+
+# ---------------------------------------------------------------------------
+# Package discovery
+# ---------------------------------------------------------------------------
+# Top-level ``sickling`` package wraps both scientific arms
+# (``protrusion_detection`` and ``rbc_classification``). Each arm's
+# implementation modules live under a private ``py_modules`` folder
+# whose contents are aliased at the arm level by each arm's
+# ``__init__.py`` (so users write ``from sickling.protrusion_detection.config
+# import cfg`` rather than going through ``py_modules`` explicitly).
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["sickling*"]
+exclude = ["*.tests*", "*.__pycache__*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["sickling/rbc_classification/tests"]
+addopts = "-ra"

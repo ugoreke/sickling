@@ -1,0 +1,13 @@
+# Model A — frozen DINOv2 ViT-S/14 + linear probe.
+# Day-one baseline (PIPELINE_PLAN §2 Stage 4 Model A).
+
+training:
+  batch_size: 128
+  max_epochs: 30
+  warmup_epochs: 2
+
+finetune:
+  head_lr: 1.0e-3
+  weight_decay: 0.0
+  llrd: 1.0           # unused — encoder is frozen
+  minority_frac: 0.5

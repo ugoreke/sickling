@@ -1,0 +1,15 @@
+# Model C — MAE-initialized ViT-S/16 + full fine-tune with LLRD.
+# Pass --mae-init <path-to-pretrain-checkpoint> on the CLI to load the
+# continued-MAE encoder weights; otherwise falls back to the supervised init.
+
+training:
+  batch_size: 64
+  max_epochs: 50
+  warmup_epochs: 5
+  weight_decay: 0.05
+
+finetune:
+  head_lr: 1.0e-3
+  backbone_lr: 5.0e-5      # MAE-init benefits from a slightly cooler backbone LR
+  llrd: 0.65
+  minority_frac: 0.5

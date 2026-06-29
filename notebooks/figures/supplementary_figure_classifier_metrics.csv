@@ -1,0 +1,14 @@
+metric,value
+n_cells,1821.0
+positive_rate,0.3915431081823174
+threshold_mcc,0.6
+mcc,0.9353852622226897
+pr_auc,0.9879858760213446
+pr_auc_ci_lo,0.983064295583576
+pr_auc_ci_hi,0.9922392907327127
+cm_tn,1090.0
+cm_fp,18.0
+cm_fn,38.0
+cm_tp,675.0
+recall_non_sickle,0.983754512635379
+recall_sickle,0.9467040673211781

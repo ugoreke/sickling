@@ -1,0 +1,11 @@
+# Tiny config used by `make smoke` — validates that Lightning + WandbLogger
+# scaffolding works end-to-end on CPU before any real model runs.
+training:
+  precision: 32-true
+  batch_size: 8
+  max_epochs: 1
+  lr: 1.0e-3
+
+smoke:
+  num_samples: 64
+  input_dim: 16

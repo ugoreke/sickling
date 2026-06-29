@@ -1,0 +1,15 @@
+# Tiny override for smoke-testing MAE pretraining.
+# Used with `sickling pretrain -c configs/smoke_pretrain.yaml`.
+training:
+  precision: 32-true
+  batch_size: 32
+  max_epochs: 2
+  warmup_epochs: 0
+  num_workers: 0
+  lr: 1.0e-4
+
+mae_pretrain:
+  mask_ratio: 0.75
+  decoder_embed_dim: 128
+  decoder_depth: 2
+  decoder_num_heads: 4
