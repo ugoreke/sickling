@@ -24,7 +24,7 @@ can be painted by hand and fed back into training.
 
 | Index | Name          | Notes |
 |-------|---------------|-------|
-| 0     | Polymer       | **Primary target.** Faint, rare, under-represented. |
+| 0     | Protrusion       | **Primary target.** Faint, rare, under-represented. |
 | 1     | Background    | (`bg`) |
 | 2     | Cell body     | |
 | 3     | Cell boundary | Secondary target. Thin, under-fired. |
@@ -34,11 +34,11 @@ can be painted by hand and fed back into training.
 The failure mode is **false-negative / under-representation**, not class
 confusion:
 
-- Polymer (0) → Background (1): **34%** of polymer pixels missed. TP ≈ 62%.
+- Protrusion (0) → Background (1): **34%** of polymer pixels missed. TP ≈ 62%.
 - Cell boundary (3) → Background: ~0.11; → Cell body: ~0.16. TP ≈ 0.73.
 
 Both problem classes are thin/faint structures the model *omits* rather than
-*mislabels into a sibling*. Polymer is also genuinely rare in the data, so the
+*mislabels into a sibling*. Protrusion is also genuinely rare in the data, so the
 root cause is "not enough examples seen," addressed by mining and labeling more
 of it — not by changing the decision rule.
 
@@ -58,7 +58,7 @@ collisions).
 | `CorrectedTiles`    | Human-painted tile labels: `<stem>__y<top>_x<left>_labels.h5` | **Training** (added to the 11). Partial labels OK (untouched = ignore). |
 | `MiniTilesToBeCorrected` | Mined adaptive small crops (64–192 px) + matching PREDs. Fast single-class labelling. | Staging area for the mini-crops workflow (§7.5). |
 | `MiniTilesCorrected`     | Polymer-only painted mini-crop labels + cached `_dense.h5` densified siblings | **Training** (auto-included via `build_train_pool`; mini-crops are densified on demand from a clean fill model). |
-| `MiniTilesForEval`       | 100 polymer-centered adaptive crops with 2× context, well-balanced across wells; sealed from training | **Held-out external test surface.** Consumed by `../notebooks/polymer_length_grid.ipynb` for the manual polymer-length test (not graded inside this arm). |
+| `MiniTilesForEval`       | 100 polymer-centered adaptive crops with 2× context, well-balanced across wells; sealed from training | **Held-out external test surface.** Consumed by `../notebooks/protrusion_length_grid.ipynb` for the manual polymer-length test (not graded inside this arm). |
 | `models/`           | Checkpoints: `<backbone>_fold_<f>_best_loop_<N>.pth` | One file per (backbone, fold, loop). Multiple backbones and loops coexist. |
 | `metrics/`          | `iteration_log.csv`, `trajectory.png`, `tp_fp_trajectory.png` | Per-retrain progress; viewed via §5 of the notebook. |
 | `viz/`              | Raw-plus-class-overlay PNGs mirroring the source folder layout | Quick visual sanity-check of labels and PREDs (§9). On-demand rebuild via the §5.0 cell. |
@@ -332,7 +332,7 @@ default** (`PROMOTE_TILES_TO_VAL = False`).
   MINI_EVAL_CROP_MAX]`), saved as a **2× context** image with the eval
   region centered. Sampled round-robin across wells (first 3 chars of
   the stem). Not graded inside this arm — these crops are consumed by
-  the cross-arm `notebooks/polymer_length_grid.ipynb` for the manual
+  the cross-arm `notebooks/protrusion_length_grid.ipynb` for the manual
   polymer-length test against the model's predictions.
 - Promoted corrected tiles (if enabled) are a supplementary, **noisy** monitor —
   a single small tile must not yank checkpoint selection.
@@ -435,7 +435,7 @@ helper).
 
 | Decision | Rationale |
 |----------|-----------|
-| **No** confidence-gated export | Polymer is easily eye-visible; the value was low and added complexity. |
+| **No** confidence-gated export | Protrusion is easily eye-visible; the value was low and added complexity. |
 | **No** copy-paste augmentation | Operator prefers real labels over synthetic polymer. |
 | **No** tunable inference threshold / logit bias | Under-detection is acceptable; operator would rather paint polymer than tune the decision rule. |
 | **No** warm-start from previous checkpoint | Operator preference; every retrain is from scratch. |

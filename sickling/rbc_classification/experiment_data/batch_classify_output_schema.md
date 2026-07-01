@@ -21,8 +21,8 @@ except figures which go to `INPUT_FOLDER/figures/`.
 | `n_cells` | int | total classified cells | per-FOV cell density / yield QC |
 | `mean_p_sickle` | float | mean softmax p(sickle) across cells in this FOV | soft fraction — less noisy than `frac_sickle` at low prevalence; smoother violins |
 | `frac_sickle` | float | `n_sickle / n_cells` | the existing main metric |
-| `polymer_length_um` | float | sum of kept-blob major axes (µm) | total polymer burden per FOV |
-| `n_polymer_blobs_kept` | int | blobs surviving the filter | sanity check — should track polymer length |
+| `polymer_length_um` | float | sum of kept-blob major axes (µm) | total protrusion burden per FOV |
+| `n_polymer_blobs_kept` | int | blobs surviving the filter | sanity check — should track protrusion length |
 | `n_polymer_blobs_dropped_too_short` | int | <`MIN_LENGTH_PX` | usually noise; high counts → segmentation churn |
 | `n_polymer_blobs_dropped_too_long` | int | >`MAX_LENGTH_PX` | microscope artifacts; spike per FOV = bad image |
 | `n_polymer_blobs_dropped_too_far` | int | >`MAX_DIST_FROM_CELL_PX` from any cell | dust, debris, background false positives |

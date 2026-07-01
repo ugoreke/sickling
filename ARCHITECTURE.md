@@ -287,27 +287,38 @@ need to type `py_modules` explicitly.
 
 ---
 
-## 7. Reproducibility
+## 7. What ships in the repo vs off-repo
 
-Code + small parquet outputs + cached OOF dumps + sample.jpg are in
-this repo. Raw images, U-Net training data, U-Net checkpoints,
-classifier checkpoints, and per-condition image folders live on OSF:
+The repo is a **model-development showcase**. It ships everything
+needed to (a) understand how the two models were built and (b) explore
+model behaviour on the bundled sample. It does **not** ship the full
+per-condition image dataset — that's too large to host, and the paper's
+biology figures were built from it but aren't the focus of the repo.
 
-| Path in repo (gitignored) | OSF deposit (https://osf.io/gnec4/) |
+**In-repo** (cloneable and immediately runnable):
+
+| Path | Content |
 |---|---|
-| `sickling/protrusion_detection/InitialLabels/` | held-out U-Net test masks |
-| `sickling/protrusion_detection/BootstrappedLabels/` | dense pseudo-label training pool |
-| `sickling/protrusion_detection/CorrectedTiles/` | HITL-painted training tiles |
-| `sickling/protrusion_detection/CorrectionPool/` | raw correction-pool images + PRED files |
-| `sickling/protrusion_detection/models/` | versioned U-Net checkpoints |
-| `sickling/rbc_classification/checkpoints/` | multimodal classifier checkpoints |
-| `sickling/rbc_classification/raw_images/` | raw FOV bright-field stacks |
-| `sickling/rbc_classification/experiment_data/{condition}/` | per-condition processed images |
-| `sickling/rbc_classification/experiment_data/per_cell_morphology.pt` | 30-d morphology vectors |
+| `sample.jpg` | one bright-field FOV, used by `notebooks/colab_demo.ipynb` |
+| `sickling/rbc_classification/eval_reports/` | 5-fold OOF predictions from the published classifier; consumed by `sickle_classifier_confusion_matrix.ipynb` |
+| `sickling/rbc_classification/experiment_data/*.parquet` | classifier-pipeline outputs used by `analysis_protrusion_per_condition.ipynb` (per_fov, per_cell, polymer_blobs, per_condition, pairwise_stats) |
+| `sickling/rbc_classification/experiment_data/per_cell_morphology.pt` | 30-d morphology feature tensor for every labelled cell |
+| `sickling/rbc_classification/labels/` | sickle / non-sickle ground truth used to train the classifier |
 
-After cloning the repo, download the matching OSF subset and place the
-files at the indicated paths to reproduce the full pipeline. The demo
-notebook (`notebooks/colab_demo.ipynb`) and the supplementary-figure
-regen notebooks (`pixel_confusion_matrix.ipynb`,
-`sickle_classifier_confusion_matrix.ipynb`) work without the OSF data —
-they consume only the small artifacts committed to git.
+**Off-repo — Google Drive** (paste URLs into `notebooks/colab_demo.ipynb`):
+
+| Asset | Used by |
+|---|---|
+| U-Net checkpoint (`.pth`) | Colab demo + `pixel_confusion_matrix.ipynb` |
+| DINOv2 + morphology classifier checkpoint (`.ckpt`) | Colab demo + `orchestrate.ipynb` |
+| Raw cell crops (classifier training data) | `orchestrate.ipynb` re-training |
+| Protrusion labels (`InitialLabels/`, `BootstrappedLabels/`, `CorrectedTiles/`, `MiniTilesCorrected/`, `CorrectionPool/`) | `HITL_pipeline.ipynb` re-training |
+
+**Not currently hosted** (available on request):
+
+The full per-condition image folders
+(`experiment_data/{A-UNT, ALHi, ALLo, S-UNT, SE1, SE2, SLHi, SLN1}/`)
+underlying the biology figures. `batch_classify.ipynb` walks these
+folders and produces the parquets that are already in the repo — so
+someone re-analysing the biology can pick up from the parquets
+directly.

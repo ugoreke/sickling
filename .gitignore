@@ -65,9 +65,6 @@ sickling/rbc_classification/conditions/
 sickling/rbc_classification/wandb_logs/
 sickling/rbc_classification/figures/
 
-# Per-cell morphology tensor (27MB) — paper figures don't depend on it
-sickling/rbc_classification/experiment_data/per_cell_morphology.pt
-
 # Top-level handoff / scratch
 HANDOFF.md
 _stage_log.txt
