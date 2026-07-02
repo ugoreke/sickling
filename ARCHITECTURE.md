@@ -189,24 +189,20 @@ U-Net protrusion-length accuracy vs human ground truth. Workflow:
 
 ### 4.4 `notebooks/analysis_protrusion_per_condition.ipynb`
 
-**Reproduces the paper's Figure 2e metric.** The **paper metric** is
-computed in the notebook's `Idea O` cell (near the bottom): reads
-`rbc_classification/experiment_data/per_fov_dist10.parquet` and
-computes per-condition pool stats — one number per condition, formed as
-`sum(polymer_length_um) / sum(n_sickle)` across all FOVs in the
-condition, with bootstrap 95% CIs over FOV resampling. No per-FOV
-minimum-sickle filter (pool aggregation isn't sensitive to per-FOV
-denominator volatility); the crowding upper bound `MAX_CELLS ≤ 500` is
-still applied as a biological cleanliness filter.
-
-The notebook also contains, above `Idea O`, a substantial methodology
-exploration record: the earlier per-FOV distribution figure (a
-half-violin over per-FOV ratios — kept as a record of development but
-NOT what the paper reports), Ideas A–N (fiber-count decomposition,
-network topology, shape maps, classifier calibration, per-blob
-distributions, drop-reason QC, post-hoc threshold sweeps), and Idea L
-(the dist10 persistence step that justified `MAX_DIST_FROM_CELL_PX = 10`
-as the analysis default). None of these are reported as paper figures.
+**Reproduces the paper's Figure 2e metric.** The notebook reads
+`sickling/rbc_classification/experiment_data/per_fov_dist10.parquet`
+(committed) and computes per-condition pool stats — one number per
+condition, formed as `sum(polymer_length_um) / sum(n_sickle)` across all
+FOVs in the condition, with bootstrap 95% CIs over FOV resampling. No
+per-FOV minimum-sickle filter (pool aggregation isn't sensitive to
+per-FOV denominator volatility); the crowding upper bound
+`MAX_CELLS ≤ 500` is still applied as a biological cleanliness filter.
+The three HbA controls (`ALHi`, `ALLo`, `A-UNT`) are pooled into one
+`neg_control` sample. Output: the two-y-axis dot plot (pooled protrusion
+µm/sickle + pooled sickle fraction) and its CSV. The `dist10` input
+reflects the `MAX_DIST_FROM_CELL_PX = 10` analysis default (protrusion
+blobs farther than 10 px from any cell are treated as segmentation
+noise).
 
 ### 4.5 `notebooks/sickle_classifier_confusion_matrix.ipynb`
 
@@ -308,7 +304,7 @@ biology figures were built from it but aren't the focus of the repo.
 |---|---|
 | `sample.jpg` | one bright-field FOV, used by `notebooks/colab_demo.ipynb` |
 | `sickling/rbc_classification/eval_reports/` | 5-fold OOF predictions from the published classifier; consumed by `sickle_classifier_confusion_matrix.ipynb` |
-| `sickling/rbc_classification/experiment_data/*.parquet` | classifier-pipeline outputs used by `analysis_protrusion_per_condition.ipynb` (per_fov, per_cell, polymer_blobs, per_condition, pairwise_stats) |
+| `sickling/rbc_classification/experiment_data/*.parquet` | classifier-pipeline outputs (per_fov, per_fov_dist10, per_cell, polymer_blobs, per_condition, pairwise_stats). `analysis_protrusion_per_condition.ipynb` reads `per_fov_dist10.parquet`. |
 | `sickling/rbc_classification/experiment_data/per_cell_morphology.pt` | 30-d morphology feature tensor for every labelled cell |
 | `sickling/rbc_classification/labels/` | sickle / non-sickle ground truth used to train the classifier |
 

@@ -63,7 +63,7 @@ All under `notebooks/`:
 | `sickle_classifier_confusion_matrix.ipynb` | Classifier eval on the 5-fold OOF predictions committed under `eval_reports/` | Yes (self-contained) |
 | `pixel_confusion_matrix.ipynb` | U-Net pixel-level performance on the held-out `InitialLabels` test split | Needs the U-Net checkpoint + `InitialLabels/*.h5` (Google Drive) |
 | `protrusion_length_grid.ipynb` | U-Net protrusion-length accuracy vs manual Photoshop-Count measurement on a 10×10 evaluation grid | Needs `MiniTilesForEval/` + `grid_10x10_counts.csv` (Google Drive) |
-| `analysis_protrusion_per_condition.ipynb` | Reproduces the paper's Figure 2e metric — pool per-condition protrusion µm per sickle cell + sickle fraction + bootstrap CIs (see "Idea O" cell at the bottom). Earlier cells contain the methodology exploration (fiber decomposition, threshold sweeps, per-FOV distribution views, dist-10 persistence step) as a record of how the paper metric was arrived at. | Yes for Idea O + the exploration cells (committed parquets); full re-sweeps need per-condition images (Google Drive) |
+| `analysis_protrusion_per_condition.ipynb` | Reproduces the paper's Figure 2e metric — pool per-condition protrusion µm per sickle cell + sickle fraction + bootstrap CIs, read straight from the committed `per_fov_dist10.parquet`. | Yes (self-contained) |
 
 Plus the model-arm notebooks:
 
