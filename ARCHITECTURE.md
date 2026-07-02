@@ -182,10 +182,11 @@ U-Net protrusion-length accuracy vs human ground truth. Workflow:
    inside each dashed frame, exports via `count2csv.jsx`.
 3. The notebook pairs consecutive marker rows, clips to the
    per-crop eval region (Liang-Barsky), and computes manual length as
-   Euclidean distance between paired endpoints. Model length is
-   computed two ways (skeleton pixel count and `regionprops` major
-   axis) over CCs in the same eval region.
-4. Output: manual-vs-model scatter + Bland–Altman per metric.
+   Euclidean distance between paired endpoints. Model length is the
+   `regionprops` major-axis length of the matched connected component in
+   the same eval region — the length metric quoted throughout the paper
+   (Figure 2d, +2.9 px bias, n=161).
+4. Output: manual-vs-model scatter + Bland–Altman (major-axis).
 
 ### 4.4 `notebooks/analysis_protrusion_per_condition.ipynb`
 
