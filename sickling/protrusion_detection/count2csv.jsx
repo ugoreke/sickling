@@ -5,7 +5,7 @@
 // in the same folder as the active document, in placement order.
 //
 // Convention used by the polymer-length tooling (see
-// sickling/notebooks/polymer_length_grid.ipynb):
+// notebooks/protrusion_length_grid.ipynb):
 //   - rows 1, 3, 5, ...   = start coordinate of a polymer
 //   - rows 2, 4, 6, ...   = end coordinate of the same polymer
 //

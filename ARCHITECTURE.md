@@ -111,11 +111,12 @@ Five staged sub-packages:
   captured for QA.
 - **`stage3_crops`** — each kept instance becomes a 96×96×3 tensor:
   channel 0 = normalised raw, channel 1 = cell-body mask, channel 2 =
-  protrusion mask. Aligned with `cells.parquet`.
+  protrusion mask. Aligned with `cells.parquet`. (These 96×96 tensors
+  are resized to 224×224 inside the image tower before being fed to
+  DINOv2 — the "224×224 resized crops" quoted in the paper Methods
+  refers to the DINOv2 input, not the on-disk crop size.)
 - **`stage4_repr`** — image representation. The published model uses
-  the **frozen DINOv2 ViT-S/14** (384-d CLS token, no fine-tuning); the
-  package also exposes finetune variants (timm-ViT, MAE-pretrained ViT)
-  used only during pre-publication exploration.
+  the **frozen DINOv2 ViT-S/14** (384-d CLS token, no fine-tuning).
 - **`stage5_multimodal`** — image tower + 30-d morphology MLP, fused
   via a 2-layer MLP into a 2-class softmax head. Per-fold
   standardization of morphology features on the train subset.
@@ -188,18 +189,24 @@ U-Net protrusion-length accuracy vs human ground truth. Workflow:
 
 ### 4.4 `notebooks/analysis_protrusion_per_condition.ipynb`
 
-**Main biology figure.** Reads
+**Reproduces the paper's Figure 2e metric.** The **paper metric** is
+computed in the notebook's `Idea O` cell (near the bottom): reads
 `rbc_classification/experiment_data/per_fov_dist10.parquet` and
-produces the per-condition pool stats (sickle fraction, µm protrusion
-per sickle cell) with bootstrap 95% CIs over FOV resampling. No
-per-FOV minimum-sickle filter is applied to the pool metric — by
-construction, pool aggregation isn't sensitive to per-FOV denominator
-volatility. The crowding upper bound `MAX_CELLS ≤ 500` is still
-applied as a biological cleanliness filter.
+computes per-condition pool stats — one number per condition, formed as
+`sum(polymer_length_um) / sum(n_sickle)` across all FOVs in the
+condition, with bootstrap 95% CIs over FOV resampling. No per-FOV
+minimum-sickle filter (pool aggregation isn't sensitive to per-FOV
+denominator volatility); the crowding upper bound `MAX_CELLS ≤ 500` is
+still applied as a biological cleanliness filter.
 
-Per-condition Mann-Whitney vs the negative control with BH-FDR
-correction over the comparison set; output table goes into the paper as
-the per-condition stats panel.
+The notebook also contains, above `Idea O`, a substantial methodology
+exploration record: the earlier per-FOV distribution figure (a
+half-violin over per-FOV ratios — kept as a record of development but
+NOT what the paper reports), Ideas A–N (fiber-count decomposition,
+network topology, shape maps, classifier calibration, per-blob
+distributions, drop-reason QC, post-hoc threshold sweeps), and Idea L
+(the dist10 persistence step that justified `MAX_DIST_FROM_CELL_PX = 10`
+as the analysis default). None of these are reported as paper figures.
 
 ### 4.5 `notebooks/sickle_classifier_confusion_matrix.ipynb`
 

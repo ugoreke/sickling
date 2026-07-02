@@ -30,9 +30,12 @@ except figures which go to `INPUT_FOLDER/figures/`.
 | `polymer_skeleton_length_um` | float | total pixels of `skeletonize(kept_polymer_mask)` × scale | curved/branched fibers correctly summed; major-axis underestimates them |
 | `polymer_endpoints` | int | skeleton pixels with 1 neighbor | fiber-tip count; rough fiber count |
 | `polymer_branch_points` | int | skeleton pixels with ≥3 neighbors | network complexity; branching = more advanced polymerization |
-| `polymer_um_per_100_cells` | float | `polymer_length_um × 100 / n_cells` | existing normalized metric |
+| `polymer_um_per_100_cells` | float | `polymer_length_um × 100 / n_cells` | **legacy — not reported in the paper.** Uses all cells (sickle + non-sickle) in the denominator. The paper's Figure 2e uses per-sickle-cell only (`polymer_length_um / n_sickle`, pooled per condition — see `notebooks/analysis_protrusion_per_condition.ipynb` cell `Idea O`). |
 
-**Analysis ideas:** `polymer_endpoints / 2` ≈ fiber count, then
+> **Paper metric (Figure 2e):** `sum(polymer_length_um) / sum(n_sickle)` pooled across FOVs per condition, with a 1000-resample bootstrap CI. Computed by `notebooks/analysis_protrusion_per_condition.ipynb` (Idea O). Neither `polymer_um_per_100_cells` nor a per-FOV distribution of `polymer_length_um / n_sickle` are what the paper reports.
+
+**Analysis ideas** (methodology exploration — not reported in the paper):
+`polymer_endpoints / 2` ≈ fiber count, then
 `polymer_length_um / fiber_count` ≈ mean fiber length per FOV. Branch-points ÷
 endpoints ratio captures network topology and may separate conditions that
 look similar on length alone.
@@ -54,8 +57,10 @@ manuscript.
 | `median_frac_sickle`, `median_mean_p_sickle`, `median_polymer_um_per_100_cells`, `median_polymer_area_fraction` | float | median across FOVs |
 | `median_eccentricity`, `median_axis_ratio`, `median_solidity`, `median_compactness`, `median_n_convexity_defects`, `median_max_defect_depth_um` | float | median across cells |
 
-**Analysis ideas:** use this directly for paper Table 1. Sort by
-`median_polymer_um_per_100_cells` to rank conditions by polymerization burden.
+**Analysis ideas** (methodology exploration — not reported in the paper):
+Sort by `median_polymer_um_per_100_cells` to rank conditions by
+polymerization burden. The paper's Figure 2e uses a different (pool-level,
+per-sickle-cell) ranking; see the top of this file.
 
 ---
 

@@ -17,7 +17,7 @@ Output (next to ``MiniTilesForEval/``):
 The operator opens the PNG in Photoshop, drops Count-tool markers at the
 endpoints of polymers inside each dashed frame (start, end, start, end, ...)
 and exports the coordinates via ``count2csv.jsx``. Downstream
-(``sickling/notebooks/polymer_length_grid.ipynb``) takes the resulting CSV,
+(``notebooks/protrusion_length_grid.ipynb``) takes the resulting CSV,
 the layout JSON, and the UNet checkpoint, maps each manual polymer back to
 its source crop, computes manual length as the Euclidean distance between
 the paired endpoints, computes model length as the skeleton length plus
