@@ -16,6 +16,7 @@ work directly.
 from __future__ import annotations
 
 import sys as _sys
+import warnings as _warnings
 
 _SUBMODULES = (
     "config",
@@ -37,8 +38,17 @@ for _name in _SUBMODULES:
         _sys.modules[f"sickling.rbc_classification.{_name}"] = (
             _sys.modules[f"sickling.rbc_classification.py_modules.{_name}"]
         )
-    except Exception:
-        # A submodule may have optional heavy dependencies; alias what we can.
-        pass
+    except Exception as _err:
+        # A submodule may pull an optional heavy dependency (e.g. stage5_multimodal
+        # needs mahotas from the [classification] extra). Don't kill the whole arm
+        # import, but surface the real cause loudly — otherwise the submodule just
+        # goes missing and later fails as a misleading ModuleNotFoundError.
+        _warnings.warn(
+            f"sickling.rbc_classification.{_name} unavailable: "
+            f"{type(_err).__name__}: {_err}. "
+            f"If you need it, install the classification extra: "
+            f"pip install 'sickling[classification]'.",
+            stacklevel=2,
+        )
 
 __all__ = ("py_modules",)
