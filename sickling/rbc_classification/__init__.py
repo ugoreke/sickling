@@ -1,9 +1,8 @@
 """sickling.rbc_classification — sickle / non-sickle cell classifier arm.
 
-DINOv2 ViT-S/14 image tower (frozen) + MLP morphology tower over 30
-hand-crafted shape descriptors, fused by a 2-layer MLP into a 2-class
-softmax. See ``Sickle cell classification`` in the *Methods* section of
-Goreke et al. for full training detail.
+DINOv2 ViT-S/14 image tower (frozen) fed into a 2-layer MLP head that
+produces a 2-class softmax. See ``Sickle cell classification`` in the
+*Methods* section of Goreke et al. for full training detail.
 
 The implementation modules live under
 ``sickling.rbc_classification.py_modules``. This ``__init__`` aliases

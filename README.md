@@ -20,7 +20,7 @@ lives off-repo (see [*Data & weights*](#data--weights) below).
 | Arm | What it does | Backbone | Where it lives |
 |---|---|---|---|
 | **`sickling.protrusion_detection`** | 4-class semantic segmentation of HbS protrusion / background / cell body / cell boundary. Trained with a **human-in-the-loop** correction process from sparse manual annotations expanded with Ilastik. | From-scratch U-Net (256-px tiles, class-0-aware sampling, composite Dice + CE + Tversky + directed FN penalty loss) | `sickling/protrusion_detection/` |
-| **`sickling.rbc_classification`** | Per-cell sickle / non-sickle classification on 96×96 crops harvested via watershed instance segmentation from the U-Net output. | **Frozen DINOv2 ViT-S/14** image tower + MLP morphology tower over 30 hand-crafted shape descriptors, 2-layer fusion head | `sickling/rbc_classification/` |
+| **`sickling.rbc_classification`** | Per-cell sickle / non-sickle classification on 96×96 crops harvested via watershed instance segmentation from the U-Net output. | **Frozen DINOv2 ViT-S/14** image tower + 2-layer classification head | `sickling/rbc_classification/` |
 
 Chain them and you get, per FOV: total HbS protrusion length (µm),
 sickle fraction, and µm of protrusion per sickle cell — the biological
@@ -112,15 +112,14 @@ from sickling.rbc_classification.eval.report import read_report
 **In this repo:** code, docs, `sample.jpg`, the 5 fold OOF prediction
 dumps (`sickling/rbc_classification/eval_reports/`), the small parquet
 outputs of the classifier pipeline (`per_fov*.parquet`, `per_cell.parquet`,
-`polymer_blobs*.parquet`, `per_condition.parquet`, `pairwise_stats.parquet`)
-and the 30-d morphology feature tensor (`per_cell_morphology.pt`).
+`polymer_blobs*.parquet`, `per_condition.parquet`, `pairwise_stats.parquet`).
 
 **Off-repo** (too big / raw data hosting):
 
 | Asset | Where | Used by |
 |---|---|---|
 | U-Net checkpoint (best fold / loop) | Google Drive (pre-wired into the Colab demo) | Colab demo + `pixel_confusion_matrix.ipynb` |
-| DINOv2 + morphology classifier checkpoint | Google Drive (pre-wired into the Colab demo) | Colab demo + `orchestrate.ipynb` |
+| DINOv2 image classifier checkpoint | Google Drive (pre-wired into the Colab demo) | Colab demo + `orchestrate.ipynb` |
 | Raw sickle / non-sickle cell crops used to train the classifier | Google Drive | `orchestrate.ipynb` re-training |
 | HITL protrusion training labels (`InitialLabels/`, `BootstrappedLabels/`, `CorrectedTiles/`, `MiniTilesCorrected/`) | Google Drive | `HITL_pipeline.ipynb` re-training |
 | Per-condition FOV images (`experiment_data/{A-UNT, ALHi, ALLo, S-UNT, SE1, SE2, SLHi, SLN1}/`) | Not currently hosted | `batch_classify.ipynb` full-dataset sweep |

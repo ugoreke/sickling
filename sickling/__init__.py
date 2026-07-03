@@ -7,8 +7,8 @@ The two scientific arms live as sub-packages:
   segmentation arm. Produces the polymer / cell / background / cell-
   boundary mask used in ``Figure 2`` and the polymer-length test in
   ``Supplementary Figure X``.
-- ``sickling.rbc_classification`` — DINOv2 + morphology multimodal
-  classifier that turns the per-cell crops from the U-Net mask into
+- ``sickling.rbc_classification`` — frozen DINOv2 image classifier
+  that turns the per-cell crops from the U-Net mask into
   sickle / non-sickle predictions.
 
 Each sub-package's actual implementation modules live in a private

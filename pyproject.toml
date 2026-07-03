@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "sickling"
 version = "1.0.0"
-description = "HbS protrusion segmentation (HITL U-Net) + sickle/non-sickle classification (frozen DINOv2 + morphology multimodal) for bright-field microscopy of HSPC-derived RBCs. Accompanies Goreke et al. (in press)."
+description = "HbS protrusion segmentation (HITL U-Net) + sickle/non-sickle classification (frozen DINOv2 image classifier) for bright-field microscopy of HSPC-derived RBCs. Accompanies Goreke et al. (in press)."
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
