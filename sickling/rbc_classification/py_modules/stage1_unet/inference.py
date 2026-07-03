@@ -73,7 +73,7 @@ def load_unet(
         device or ("cuda" if torch.cuda.is_available() else "cpu")
     )
     model = UNet(n_channels=1, n_classes=n_classes).to(device)
-    state = torch.load(model_path, map_location=device, weights_only=True)
+    state = torch.load(model_path, map_location=device, weights_only=False)
     model.load_state_dict(state)
     model.eval()
     return model
