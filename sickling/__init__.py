@@ -1,6 +1,5 @@
 """sickling — top-level Python package for the polished HbS-protrusion +
-sickle-cell-classification pipeline accompanying Goreke et al., *Mol
-Ther Adv* (in press).
+sickle-cell-classification pipeline accompanying Goreke et al. (in press).
 
 The two scientific arms live as sub-packages:
 

@@ -1,5 +1,0 @@
-,predicted_polymer,predicted_background,predicted_cell body,predicted_cell boundary
-truth_polymer,52912,32231,1485,3380
-truth_background,20713,5229480,15948,69421
-truth_cell body,498,6572,1317445,73045
-truth_cell boundary,1357,85751,115229,909795

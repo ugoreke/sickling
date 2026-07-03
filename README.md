@@ -1,11 +1,11 @@
 # sickling
 
 Two machine-learning models for the bright-field functional assessment of
-gene-edited sickle red blood cells published in:
+gene-edited sickle red blood cells, from:
 
 > **Quantifying the Functional Phenotype of Sickled Red Cells Derived
 > from Gene-Edited Hematopoietic Stem Cells Using Machine Learning**
-> Goreke et al., *Molecular Therapy Advances* (in press).
+> Goreke et al. (in press).
 
 This repository is a **model-development showcase**: it walks you through
 how the two models were designed, trained, and validated, and lets you
@@ -30,12 +30,16 @@ readout the paper reports.
 
 ## Try it in Colab (5 minutes)
 
-Open [`notebooks/colab_demo.ipynb`](notebooks/colab_demo.ipynb) in Google
-Colab. Paste the checkpoint URLs into the *Setup* cell (see
-[*Data & weights*](#data--weights)) and run top-to-bottom. The notebook
-loads the bundled `sample.jpg`, runs the U-Net to produce the 4-class
-mask, watershed-segments individual RBCs, classifies each one as
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ugoreke/sickling/blob/main/notebooks/colab_demo.ipynb)
+
+Click the badge to open [`notebooks/colab_demo.ipynb`](notebooks/colab_demo.ipynb)
+in Google Colab, then **Runtime → Run all**. The checkpoint URLs are already
+wired into the *Setup* cell, so no manual setup is needed — the notebook
+installs the package, pulls the two model checkpoints from Google Drive and
+the bundled `sample.jpg`, runs the U-Net to produce the 4-class mask,
+watershed-segments individual RBCs, classifies each one as
 sickle / non-sickle, and prints the per-FOV summary numbers.
+(Pick a GPU runtime for the ~2-minute run: **Runtime → Change runtime type → T4 GPU**.)
 
 Local one-liner:
 
@@ -115,15 +119,15 @@ and the 30-d morphology feature tensor (`per_cell_morphology.pt`).
 
 | Asset | Where | Used by |
 |---|---|---|
-| U-Net checkpoint (best fold / loop) | Google Drive — paste URL into `notebooks/colab_demo.ipynb` | Colab demo + `pixel_confusion_matrix.ipynb` |
-| DINOv2 + morphology classifier checkpoint | Google Drive — paste URL into `notebooks/colab_demo.ipynb` | Colab demo + `orchestrate.ipynb` |
+| U-Net checkpoint (best fold / loop) | Google Drive (pre-wired into the Colab demo) | Colab demo + `pixel_confusion_matrix.ipynb` |
+| DINOv2 + morphology classifier checkpoint | Google Drive (pre-wired into the Colab demo) | Colab demo + `orchestrate.ipynb` |
 | Raw sickle / non-sickle cell crops used to train the classifier | Google Drive | `orchestrate.ipynb` re-training |
 | HITL protrusion training labels (`InitialLabels/`, `BootstrappedLabels/`, `CorrectedTiles/`, `MiniTilesCorrected/`) | Google Drive | `HITL_pipeline.ipynb` re-training |
 | Per-condition FOV images (`experiment_data/{A-UNT, ALHi, ALLo, S-UNT, SE1, SE2, SLHi, SLN1}/`) | Not currently hosted | `batch_classify.ipynb` full-dataset sweep |
 
 `.gitignore` reflects this split — cloning the repo gets you everything
-you need to explore the classifier eval and run the Colab demo end-to-end
-once you plug in the two checkpoint URLs.
+you need to explore the classifier eval, and the Colab demo runs
+end-to-end straight from the badge above (checkpoints pull automatically).
 
 ---
 
