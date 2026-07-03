@@ -142,18 +142,3 @@ length / mask / area of the paper.
 ## License
 
 MIT.
-
----
-
-## Citation
-
-Bibtex once the manuscript is in print:
-
-```bibtex
-@article{goreke2026hbs,
-  author  = {Goreke, Utku and Chen, Julia and Ansong-Ansongton, Yaw Ofosu Nyansa and Perez, Nathan M. and Kamath, Dipti and Gurkan, Umut and Giannikopoulos, Petros and Nguyen, David},
-  title   = {Quantifying the Functional Phenotype of Sickled Red Cells Derived from Gene-Edited Hematopoietic Stem Cells Using Machine Learning},
-  journal = {Molecular Therapy Advances},
-  year    = {2026},
-}
-```
